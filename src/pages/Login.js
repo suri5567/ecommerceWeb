@@ -71,7 +71,7 @@ const Login = () => {
 				_id: user.uid,
 				name: user.displayName,
 				email: user.email,
-				image: user.photoURL 
+				image: user.photoURL || getRandomProfileImage()
 			}));
 			toast.success("Already Logged In");
 		} else {
@@ -84,7 +84,7 @@ const Login = () => {
 						  _id: user.uid,
 						  name: user.displayName,
 						  email: user.email,
-						  image: user.photoURL 
+						  image: user.photoURL || getRandomProfileImage()
 						}));
 						toast.success("Logged In Successfully");
 						setTimeout(() => {
@@ -98,19 +98,19 @@ const Login = () => {
 		}
 	};
 
-	// const getRandomProfileImage = () => {
-	// 	const profileImages = [
-	// 		"https://tse3.mm.bing.net/th?id=OIP.Lpx9j83qR_cfQuaPHuvwWQHaHw&pid=Api&P=0&h=180",
-	// 		"https://tse1.mm.bing.net/th?id=OIP.ndapGeUyZ0m5iDxNQOLkBgHaHa&pid=Api&P=0&h=180",
-	// 		"https://tse2.mm.bing.net/th?id=OIP.bbEC4zuJyYZq2FwlY1w1kAHaHa&pid=Api&P=0&h=180",
-	// 		"https://tse4.mm.bing.net/th?id=OIP.Y1Dlue3OF6hx4v6I3uDkvQHaHa&pid=Api&P=0&h=180",
-	// 		"https://tse1.mm.bing.net/th?id=OIP.cxw_TB5nOSF4fpiVCuZaOAHaHa&pid=Api&P=0&h=180",
-	// 		"https://tse3.mm.bing.net/th?id=OIP.Kf-A4bhyw6NFAggbsk3cdwHaIU&pid=Api&P=0&h=180",
-	// 		"https://tse4.mm.bing.net/th?id=OIP.euqcyHvusXHENYgYwF-C5wHaFh&pid=Api&P=0&h=180",
-	// 		"https://tse2.mm.bing.net/th?id=OIP._NWvCJxi-_nfSbQF2uTypAHaHa&pid=Api&P=0&h=180"
-	// 	];
-	// 	return profileImages[Math.floor(Math.random() * profileImages.length)];
-	// };
+	const getRandomProfileImage = () => {
+		const profileImages = [
+			"https://tse3.mm.bing.net/th?id=OIP.Lpx9j83qR_cfQuaPHuvwWQHaHw&pid=Api&P=0&h=180",
+			"https://tse1.mm.bing.net/th?id=OIP.ndapGeUyZ0m5iDxNQOLkBgHaHa&pid=Api&P=0&h=180",
+			"https://tse2.mm.bing.net/th?id=OIP.bbEC4zuJyYZq2FwlY1w1kAHaHa&pid=Api&P=0&h=180",
+			"https://tse4.mm.bing.net/th?id=OIP.Y1Dlue3OF6hx4v6I3uDkvQHaHa&pid=Api&P=0&h=180",
+			"https://tse1.mm.bing.net/th?id=OIP.cxw_TB5nOSF4fpiVCuZaOAHaHa&pid=Api&P=0&h=180",
+			"https://tse3.mm.bing.net/th?id=OIP.Kf-A4bhyw6NFAggbsk3cdwHaIU&pid=Api&P=0&h=180",
+			"https://tse4.mm.bing.net/th?id=OIP.euqcyHvusXHENYgYwF-C5wHaFh&pid=Api&P=0&h=180",
+			"https://tse2.mm.bing.net/th?id=OIP._NWvCJxi-_nfSbQF2uTypAHaHa&pid=Api&P=0&h=180"
+		];
+		return profileImages[Math.floor(Math.random() * profileImages.length)];
+	};
 
 	return (
 		<>
