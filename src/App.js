@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Shipping from './pages/Shipping'
 import Payment from './pages/Payment'
 import FinalOrderSummary from './pages/FinalOrderSummary'
+import Signup from './pages/Signup'
 
 const Layout =()=>{
  return(
@@ -29,10 +30,14 @@ const router =createBrowserRouter ([
     children:[
       {
         path:"/",
-        element:<Home/>,
-        loader:productsData,
+        element:<Login />,
+        
 
       },
+	  {
+		path:'/signup',
+		element:<Signup />
+	  },
 	  {
 		path:'/payment',
 		element:<Payment />
@@ -46,7 +51,7 @@ const router =createBrowserRouter ([
 		element:<Shipping />
 	  },
       {
-        path:"/product/:id",
+        path:"/home/product/:id",
         element: <Product/>
       },
       {
@@ -54,14 +59,10 @@ const router =createBrowserRouter ([
         element: <Cart/>
       },
       {
-        path:"/login",
-        element: <Login/>
+        path:"/home",
+        element: <Home />,
+	     loader:productsData,
       },
-      {
-        path:"/",
-      element:<Home/>
-      }
-      
     ],
   }
 ])

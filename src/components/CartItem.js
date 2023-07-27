@@ -90,7 +90,7 @@ const CartItem = () => {
         Reset Cart
       </button>
       <Link
-        to="/"
+        to="/home"
         className="mt-8 ml-0 md:ml-7 flex items-center gap-
 -1 text-gray-700 hover:text-black duration-300">
         <span>

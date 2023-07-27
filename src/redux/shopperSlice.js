@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     productData:[],
-    userInfo: null
+    userInfo: null,
+	counter:0,
   }
 
   export const shopperSlice = createSlice({
@@ -47,7 +48,8 @@ const initialState = {
             }
         },
         addUser:(state,action)=>{
-            state.userInfo=action.payload
+            state.userInfo=action.payload;
+			state.counter = state.counter+1;
         },
         removeUser:(state,action)=>{
             state.userInfo=null

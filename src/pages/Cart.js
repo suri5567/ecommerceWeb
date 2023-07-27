@@ -19,11 +19,7 @@ const Cart = () => {
   }, [productData]);
 
   const handleCheckOut = () => {
-    if (userInfo) {
 		navigate('/shipping')
-    } else {
-      toast.error("Please sign in to checkout");
-    }
   };
 
   return (
