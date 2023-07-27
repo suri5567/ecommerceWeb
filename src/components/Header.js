@@ -53,10 +53,10 @@ const Header = () => {
 				:"https://tse2.mm.bing.net/th?id=OIP.Crq9sn3Qu3HyHwPJi2zW8QHaHa&pid=Api&P=0&h=180"
               }
               alt=""
-			/>
+			  style={{marginRight:"15px"}}/>
           </Link>
           {userInfo && (
-            <p className="text-base font-titleFont font-semibold underline underline-offset-2" style={{paddingRight:"2px"}}>
+            <p className="text-base font-titleFont font-semibold underline underline-offset-2" style={{paddingRight:"35px"}}>
               {userInfo.name}
             </p>
           )}
