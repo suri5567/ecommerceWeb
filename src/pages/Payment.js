@@ -17,7 +17,6 @@ export default function Payment(){
 		const form = e.target.form;
 
 		if (form.checkValidity()) {
-			// The form inputs are valid, proceed to payment
 			if (cardNum.length !== 16) {
 				alert("Card must be of length 16 digits !!!");
 			} else if (!expiryDate.match(/^\d{2}\/\d{2}$/)) {
@@ -32,7 +31,7 @@ export default function Payment(){
 			form.reportValidity();
 		}
 	}
-	// cart will empty after paying bill.
+	
 	const resetCartt = () => {
 		return dispatch(resetCart());
 	}

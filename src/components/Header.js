@@ -56,7 +56,7 @@ const Header = () => {
 			/>
           </Link>
           {userInfo && (
-            <p className="text-base font-titleFont font-semibold underline underline-offset-2" style={{paddingRight:"5px"}}>
+            <p className="text-base font-titleFont font-semibold underline underline-offset-2" style={{paddingRight:"2px"}}>
               {userInfo.name}
             </p>
           )}

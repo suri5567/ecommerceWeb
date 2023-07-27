@@ -1,4 +1,4 @@
-// ShippingForm.js
+
 
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +51,7 @@ const Shipping = () => {
       return;
     }
 
-    // Dispatch the action to update the Redux store with the form data
+  
     dispatch(setFormData(formData));
     navigate('/payment');
   };

@@ -1,97 +1,3 @@
-// import React from 'react';
-// import { googleImg, gitHub1 } from "../assets/index";
-// import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
-// import { useDispatch } from "react-redux";
-// import { ToastContainer, toast } from "react-toastify";
-// import { addUser, removeUser } from '../redux/shopperSlice';
-// import { useNavigate } from 'react-router-dom';
-
-// const Login = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const auth = getAuth();
-//   const provider = new GoogleAuthProvider();
-
-//   const handleGoogleLogin = (e) => {
-//     e.preventDefault();
-//     signInWithPopup(auth, provider)
-//       .then((result) => {
-//         const user = result.user;
-//         dispatch(addUser({
-//           _id: user.uid,
-//           name: user.displayName,
-//           email: user.email,
-//           image: user.photoURL
-//         }));
-//         setTimeout(() => {
-//           navigate("/");
-//         }, 1500);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-
-//   const handleSignOut = () => {
-//     signOut(auth)
-//       .then(() => {
-//         toast.success("Log Out Successfully");
-//         dispatch(removeUser());
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-
-//   return (
-//     <div className='w-full flex flex-col items-center justify-center gap-10 py-20'>
-//       <div className='w-full flex flex-col items-center justify-center gap-10 md:flex-row md:justify-center'>
-//         <div
-//           onClick={handleGoogleLogin}
-//           className='text-base w-60 h-12 tracking-wide border-[1px] border-gray-400 rounded-md flex items-center justify-center gap-2
-//         hover:border-blue-600 cursor-pointer duration-300'
-//         >
-//           <img className='w-8' src={googleImg} alt="googlelogo" />
-//           <span className='text-sm text-gray-900'>Sign in with Google</span>
-//         </div>
-//         <button
-//           onClick={handleSignOut}
-//           className='bg-black text-white text-base py-3 px-8 tracking-wide rounded-md hover:bg-gray-800 duration-300'
-//         >
-//           Sign Out
-//         </button>
-//       </div>
-
-//       <div className='w-full flex flex-col items-center justify-center gap-10 md:flex-row md:justify-center'>
-//         <div
-//           className='text-base w-60 h-12 tracking-wide border-[1px] border-gray-400 rounded-md flex items-center justify-center gap-2
-//         hover:border-blue-600 cursor-pointer duration-300'
-//         >
-//           <img className='w-8' src={gitHub1} alt="githublogo" />
-//           <span className='text-sm text-gray-900'>Sign in with Git</span>
-//         </div>
-//         <button className='bg-black text-white text-base py-3 px-8 tracking-wide rounded-md hover:bg-gray-800 duration-300'>
-//           Sign Out
-//         </button>
-//       </div>
-
-//       <ToastContainer
-//         position="top-left"
-//         autoClose={3000}
-//         hideProgressBar={false}
-//         newestOnTop={false}
-//         closeOnClick
-//         rtl={false}
-//         pauseOnFocusLoss
-//         draggable
-//         pauseOnHover
-//         theme='dark'
-//       />
-//     </div>
-//   );
-// };
-
-// export default Login;
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
@@ -158,40 +64,54 @@ const Login = () => {
 
 	const handleManualLogin = (e) => {
 		e.preventDefault();
-		const user = auth.currentUser; // Check if a user is already authenticated
+		const user = auth.currentUser;
 		if (user) {
-		  // User is already logged in, navigate to the desired page
-		  dispatch(addUser({
-			_id: user.uid,
-			name: user.displayName,
-			email: user.email,
-			image: user.photoURL
-		  }));
-		  toast.success("Aready Logged In");
+
+			dispatch(addUser({
+				_id: user.uid,
+				name: user.displayName,
+				email: user.email,
+				image: user.photoURL 
+			}));
+			toast.success("Already Logged In");
 		} else {
-		  // User is not logged in, proceed with manual login
-		  signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-			  const user = userCredential.user;
-			  if (user) {
-				dispatch(addUser({
-				  _id: user.uid,
-				  name: user.displayName,
-				  email: user.email,
-				  image: user.photoURL
-				}));
-				toast.success("Logged In Successfully");
-				setTimeout(() => {
-				  navigate("/home");
-				}, 1500);
-			  }
-			})
-			.catch((error) => {
-			  toast.error("Login failed. Please check your credentials.");
-			});
+
+			signInWithEmailAndPassword(auth, email, password)
+				.then((userCredential) => {
+					const user = userCredential.user;
+					if (user) {	
+						dispatch(addUser({
+						  _id: user.uid,
+						  name: user.displayName,
+						  email: user.email,
+						  image: user.photoURL 
+						}));
+						toast.success("Logged In Successfully");
+						setTimeout(() => {
+							navigate("/home");
+						}, 1500);
+					}
+				})
+				.catch((error) => {
+					toast.error("Login failed. Please check your credentials.");
+				});
 		}
-	  };
-	  
+	};
+
+	// const getRandomProfileImage = () => {
+	// 	const profileImages = [
+	// 		"https://tse3.mm.bing.net/th?id=OIP.Lpx9j83qR_cfQuaPHuvwWQHaHw&pid=Api&P=0&h=180",
+	// 		"https://tse1.mm.bing.net/th?id=OIP.ndapGeUyZ0m5iDxNQOLkBgHaHa&pid=Api&P=0&h=180",
+	// 		"https://tse2.mm.bing.net/th?id=OIP.bbEC4zuJyYZq2FwlY1w1kAHaHa&pid=Api&P=0&h=180",
+	// 		"https://tse4.mm.bing.net/th?id=OIP.Y1Dlue3OF6hx4v6I3uDkvQHaHa&pid=Api&P=0&h=180",
+	// 		"https://tse1.mm.bing.net/th?id=OIP.cxw_TB5nOSF4fpiVCuZaOAHaHa&pid=Api&P=0&h=180",
+	// 		"https://tse3.mm.bing.net/th?id=OIP.Kf-A4bhyw6NFAggbsk3cdwHaIU&pid=Api&P=0&h=180",
+	// 		"https://tse4.mm.bing.net/th?id=OIP.euqcyHvusXHENYgYwF-C5wHaFh&pid=Api&P=0&h=180",
+	// 		"https://tse2.mm.bing.net/th?id=OIP._NWvCJxi-_nfSbQF2uTypAHaHa&pid=Api&P=0&h=180"
+	// 	];
+	// 	return profileImages[Math.floor(Math.random() * profileImages.length)];
+	// };
+
 	return (
 		<>
 			<div className='w-full flex flex-col items-center justify-center gap-10 py-10'>
@@ -228,7 +148,7 @@ const Login = () => {
 					</form>
 				</div>
 			</div>
-			{/* Google and GitHub login buttons (unchanged) */}
+		
 			<div style={{ textAlign: "center", marginTop: "-35px" }}>
 				<h1 style={{ fontFamily: "sans-serif", fontSize: "30px", color: "blue" }}>OR</h1>
 			</div>
