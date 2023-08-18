@@ -31,8 +31,12 @@ const router =createBrowserRouter ([
       {
         path:"/",
         element:<Login />,
-        
-
+    
+      },
+	  {
+        path:"/home",
+        element: <Home />,
+	     loader:productsData,
       },
 	  {
 		path:'/signup',
@@ -57,13 +61,9 @@ const router =createBrowserRouter ([
       {
         path: "/cart",
         element: <Cart/>
-      },
-      {
-        path:"/home",
-        element: <Home />,
-	     loader:productsData,
-      },
-    ],
+      }
+      
+    ]
   }
 ])
 

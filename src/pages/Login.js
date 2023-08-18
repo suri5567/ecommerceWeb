@@ -1,12 +1,24 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { addUser, removeUser } from '../redux/shopperSlice';
 import { useNavigate } from 'react-router-dom';
 import { googleImg } from "../assets/index";
+import { useSelector } from "react-redux";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { onAuthStateChanged, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const profileImages = [
+	"https://tse3.mm.bing.net/th?id=OIP.Lpx9j83qR_cfQuaPHuvwWQHaHw&pid=Api&P=0&h=180",
+	"https://tse1.mm.bing.net/th?id=OIP.ndapGeUyZ0m5iDxNQOLkBgHaHa&pid=Api&P=0&h=180",
+	"https://tse2.mm.bing.net/th?id=OIP.bbEC4zuJyYZq2FwlY1w1kAHaHa&pid=Api&P=0&h=180",
+	"https://tse4.mm.bing.net/th?id=OIP.Y1Dlue3OF6hx4v6I3uDkvQHaHa&pid=Api&P=0&h=180",
+	"https://tse1.mm.bing.net/th?id=OIP.cxw_TB5nOSF4fpiVCuZaOAHaHa&pid=Api&P=0&h=180",
+	"https://tse3.mm.bing.net/th?id=OIP.Kf-A4bhyw6NFAggbsk3cdwHaIU&pid=Api&P=0&h=180",
+	"https://tse4.mm.bing.net/th?id=OIP.euqcyHvusXHENYgYwF-C5wHaFh&pid=Api&P=0&h=180",
+	"https://tse2.mm.bing.net/th?id=OIP._NWvCJxi-_nfSbQF2uTypAHaHa&pid=Api&P=0&h=180"
+];
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -15,6 +27,8 @@ const Login = () => {
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const provider = new GoogleAuthProvider();
+	const userInfo = useSelector((state) => state.shopper.userInfo);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 	const handleGoogleLogin = (e) => {
 		e.preventDefault();
@@ -47,19 +61,33 @@ const Login = () => {
 			});
 	};
 
+
+
 	useEffect(() => {
 		const checkAuthState = () => {
-			const unsubscribe = onAuthStateChanged(auth, (user) => {
-				if (user) {
-					navigate("/home");
-				}
-			});
-			setTimeout(() => {
+			if (userInfo) {
+				setIsLoggedIn(false);
 				navigate('/home');
-			}, 200000)
-			return () => unsubscribe();
+			} else {
+				navigate('/');
+			}
 		};
-	}, []);
+
+		
+		const hasEffectRun = sessionStorage.getItem('hasEffectRun');
+
+		if (!hasEffectRun) {
+		
+			sessionStorage.setItem('hasEffectRun', 'true');
+
+			
+			if (isLoggedIn) {
+				checkAuthState();
+			} else {
+				navigate('/');
+			}
+		}
+	}, [isLoggedIn]);
 
 
 	const handleManualLogin = (e) => {
@@ -79,12 +107,12 @@ const Login = () => {
 			signInWithEmailAndPassword(auth, email, password)
 				.then((userCredential) => {
 					const user = userCredential.user;
-					if (user) {	
+					if (user) {
 						dispatch(addUser({
-						  _id: user.uid,
-						  name: user.displayName,
-						  email: user.email,
-						  image: user.photoURL || getRandomProfileImage()
+							_id: user.uid,
+							name: user.displayName,
+							email: user.email,
+							image: user.photoURL || getRandomProfileImage()
 						}));
 						toast.success("Logged In Successfully");
 						setTimeout(() => {
@@ -99,16 +127,6 @@ const Login = () => {
 	};
 
 	const getRandomProfileImage = () => {
-		const profileImages = [
-			"https://tse3.mm.bing.net/th?id=OIP.Lpx9j83qR_cfQuaPHuvwWQHaHw&pid=Api&P=0&h=180",
-			"https://tse1.mm.bing.net/th?id=OIP.ndapGeUyZ0m5iDxNQOLkBgHaHa&pid=Api&P=0&h=180",
-			"https://tse2.mm.bing.net/th?id=OIP.bbEC4zuJyYZq2FwlY1w1kAHaHa&pid=Api&P=0&h=180",
-			"https://tse4.mm.bing.net/th?id=OIP.Y1Dlue3OF6hx4v6I3uDkvQHaHa&pid=Api&P=0&h=180",
-			"https://tse1.mm.bing.net/th?id=OIP.cxw_TB5nOSF4fpiVCuZaOAHaHa&pid=Api&P=0&h=180",
-			"https://tse3.mm.bing.net/th?id=OIP.Kf-A4bhyw6NFAggbsk3cdwHaIU&pid=Api&P=0&h=180",
-			"https://tse4.mm.bing.net/th?id=OIP.euqcyHvusXHENYgYwF-C5wHaFh&pid=Api&P=0&h=180",
-			"https://tse2.mm.bing.net/th?id=OIP._NWvCJxi-_nfSbQF2uTypAHaHa&pid=Api&P=0&h=180"
-		];
 		return profileImages[Math.floor(Math.random() * profileImages.length)];
 	};
 
@@ -116,7 +134,7 @@ const Login = () => {
 		<>
 			<div className='w-full flex flex-col items-center justify-center gap-10 py-10'>
 				<div>
-					<h1 style={{ fontFamily: "sans-serif", fontSize: "30px", color: "blue" }}>Login Page</h1>
+					<h1 style={{ fontFamily: "sans-serif", fontSize: "30px", color: "blue" }}>Login</h1>
 				</div>
 				<div >
 					<form onSubmit={handleManualLogin} className='w-full flex flex-col items-left justify-center gap-4' style={{ fontSize: "20px" }}>
@@ -148,7 +166,7 @@ const Login = () => {
 					</form>
 				</div>
 			</div>
-		
+
 			<div style={{ textAlign: "center", marginTop: "-35px" }}>
 				<h1 style={{ fontFamily: "sans-serif", fontSize: "30px", color: "blue" }}>OR</h1>
 			</div>
@@ -173,7 +191,7 @@ const Login = () => {
 
 				<ToastContainer
 					position="top-left"
-					autoClose={3000}
+					autoClose={2000}
 					hideProgressBar={false}
 					newestOnTop={false}
 					closeOnClick

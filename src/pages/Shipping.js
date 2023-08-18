@@ -57,7 +57,7 @@ const Shipping = () => {
   };
 
   return (
-	<div style={{textAlign:"center"}}>
+	<div style={{textAlign:"center", marginTop:"50px"}}>
 	<h1 style={{fontSize:"30px", color:"blue", marginBottom:"30px"}}>Please fill the shipping details</h1>
     <form onSubmit={handleFormSubmit} className="w-full max-w-md mx-auto p-4" style={{textAlign:"left"}}>
       <div className="mb-4" >
